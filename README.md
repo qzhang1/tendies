@@ -1,9 +1,15 @@
 # tendies
 
-Simple stock tracker dashboard. Practice project for learning react + redux + Material-UI
+Simple stock tracker dashboard. Practice project for learning react + redux + Material-UI.
+
+Features: 
+- Add charts to view historical and live market data for tickers within major US indices (S&P, DOW, NASDAQ)
+- Add 3rd party providers to view live market data. Also provide bar to show remaining request limits before hitting provider limits.
+- Add price notifications that will notify users when a certain stock has reached a specified price.
+
 
 # Backlog
-
+- [ ] Add ability for users to enter the existing request limits on provider instance.
 - [ ] Add TabPanel for tracking major indices.
 - [ ] Add TabPanel for viewing, adding, and deleting price notifications. (WIP)
 - [x] Add ability to delete chart from portfolio.
