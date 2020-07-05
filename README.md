@@ -1,3 +1,15 @@
+# tendies
+
+Simple stock tracker dashboard. Practice project for learning react + redux + Material-UI
+
+# Backlog
+
+- Add TabPanel for tracking major indices.
+- Add TabPanel for viewing, adding, and deleting price notifications.
+- Add ability to delete chart from portfolio.
+- Add ability to save providers and dashboards to client cookie to persist through client only.
+- Add registration and authentication to allow users to create accounts and save to server.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
