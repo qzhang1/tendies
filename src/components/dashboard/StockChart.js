@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import {
   Backdrop,
   CircularProgress,
   Paper,
   makeStyles,
   Grid,
-  Button,
   IconButton,
 } from "@material-ui/core";
-import {
-  ToggleButton,
-  ToggleButtonGroup,
-  AlertTitle,
-  Alert,
-} from "@material-ui/lab";
+import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import HighlightOff from "@material-ui/icons/HighlightOff";
 import axios from "axios";
 import plotly from "plotly.js";
 import createPlotComponent from "react-plotly.js/factory";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import ToasterConfig from "../../globals/toasterConfig";
+import { DELETE_DASHBOARD } from "../../actions/actionTypes";
 
 const Plot = createPlotComponent(plotly);
 
@@ -49,14 +45,20 @@ const StockChart = ({ DashInfo }) => {
     Yearly: "lookback=365",
     MultiYear: "lookback=1825",
   };
-  console.log(DashInfo);
   // providers are only used when getting live data
-  const { ticker, provider, providerInfo } = DashInfo;
+  const { ticker, provider, id, providerInfo } = DashInfo;
   const [hasError, setHasError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [refreshInterval, setRefreshInterval] = useState("Weekly");
   const [currentData, setCurrentData] = useState();
 
+  const dispatch = useDispatch();
+  const deleteHandler = useCallback(() =>
+    dispatch({
+      type: DELETE_DASHBOARD,
+      payload: id,
+    })
+  );
   useEffect(() => {
     const getMarketData = async () => {
       setHasError(false);
@@ -170,10 +172,7 @@ const StockChart = ({ DashInfo }) => {
               justify="flex-end"
               direction="row"
             >
-              <IconButton
-                onClick={() => console.log("deleted")}
-                aria-label="delete dashboard"
-              >
+              <IconButton onClick={deleteHandler} aria-label="delete dashboard">
                 <HighlightOff />
               </IconButton>
             </Grid>

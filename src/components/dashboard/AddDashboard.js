@@ -18,10 +18,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-
-import ToasterConfig from "../../globals/toasterConfig";
 import { ADD_DASHBOARD } from "../../actions/actionTypes";
+import GenerateUUIDv4 from "../../globals/guid";
 
 const useStyles = makeStyles((theme) => ({
   fabButton: {
@@ -36,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 const dashboardSchema = Yup.object().shape({
   ticker: Yup.string().required("Select a Ticker"),
-  // provider: Yup.string().required("Select one of the providers added"),
 });
 
 const AddDashboard = () => {
@@ -45,7 +42,7 @@ const AddDashboard = () => {
   const [tickers, setTickers] = useState([]);
   const [open, setOpen] = useState(false);
   const providers = useSelector((state) => state.dataProviders);
-
+  const guidId = GenerateUUIDv4();
   const initialValues = {
     ticker: "",
     provider: "",
@@ -77,6 +74,7 @@ const AddDashboard = () => {
         payload: {
           ticker,
           provider,
+          id: guidId,
         },
       }),
     [dispatch]

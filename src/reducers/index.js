@@ -5,6 +5,7 @@ import {
   UPDATE_PROVIDER,
   CHANGE_CURRENT_THEME,
   ADD_DASHBOARD,
+  DELETE_DASHBOARD,
 } from "../actions/actionTypes";
 
 // try to keep data and ui state separate
@@ -36,6 +37,13 @@ const dashboards = (state = [], action) => {
   switch (action.type) {
     case ADD_DASHBOARD:
       return [...state, action.payload];
+    case DELETE_DASHBOARD:
+      const idx = state.findIndex((d) => d.id == action.payload);
+      if (idx > -1) {
+        state.splice(idx, 1);
+      }
+      console.log(idx);
+      return [...state];
     default:
       return state;
   }

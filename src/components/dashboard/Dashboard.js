@@ -248,18 +248,6 @@ export default function Dashboard() {
           <Container maxWidth="xl" className={classes.container}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6} lg={6}>
-                {/* <Grid container spacing={2}>
-                <Grid item xs={12} md={12}>
-                  <Paper className={minHeightPaper}>
-                    <ProviderRequestLimits />
-                  </Paper>
-                </Grid>
-                <Grid item xs={12} md={12}>
-                  <Paper className={minHeightPaper}>
-                    <AddProvider />
-                  </Paper>
-                </Grid>
-              </Grid> */}
                 <Paper className={minHeightPaper} style={{ height: "100%" }}>
                   <AppBar position="static">
                     <Tabs
