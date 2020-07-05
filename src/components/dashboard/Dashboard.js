@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import {
   makeStyles,
   createMuiTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
-import {
-  orange,
-  blue,
-  deepPurple,
-  deepOrange,
-  blueGrey,
-} from "@material-ui/core/colors";
+import { orange, blue, deepPurple, deepOrange } from "@material-ui/core/colors";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MenuIcon from "@material-ui/icons/Menu";
+import NightIcon from "@material-ui/icons/NightsStay";
+import SunIcon from "@material-ui/icons/Brightness5";
 import {
   CssBaseline,
   Drawer,
@@ -35,11 +32,11 @@ import {
 
 // CUSTOM COMPONENTS
 import { mainListItems } from "../simplecomponents/listItems";
-import AddProvider from "./AddProvider";
 import AddDashboard from "./AddDashboard";
 import ProviderRequestLimits from "./ProviderRequestLimits";
 import Portfolio from "./Portfolio";
 import NewsFeed from "../simplecomponents/NewsFeed";
+import { CHANGE_CURRENT_THEME } from "../../actions/actionTypes";
 
 const drawerWidth = 240;
 
@@ -157,11 +154,20 @@ function a11yProps(index) {
 
 export default function Dashboard() {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const darkMode = useSelector((state) => state.isDarkMode);
   const [tabValue, setTabValue] = useState(0);
   const minHeightPaper = clsx(classes.paper, classes.minHeight);
 
+  const darkModeHandler = useCallback(
+    () =>
+      dispatch({
+        type: CHANGE_CURRENT_THEME,
+        payload: !darkMode,
+      }),
+    [dispatch]
+  );
   const darkTheme = createMuiTheme({
     palette: {
       type: darkMode ? "dark" : "light",
@@ -204,10 +210,15 @@ export default function Dashboard() {
             >
               Tendies
             </Typography>
-            <Switch
-              checked={darkMode}
-              onChange={() => setDarkMode(!darkMode)}
-            />
+            {!darkMode ? (
+              <IconButton onClick={darkModeHandler}>
+                <NightIcon />
+              </IconButton>
+            ) : (
+              <IconButton onClick={darkModeHandler}>
+                <SunIcon />
+              </IconButton>
+            )}
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />

@@ -6,7 +6,6 @@ import {
   CHANGE_CURRENT_THEME,
   ADD_DASHBOARD,
 } from "../actions/actionTypes";
-import Providers from "../globals/providers";
 
 // try to keep data and ui state separate
 
@@ -47,9 +46,9 @@ const dashboards = (state = [], action) => {
  * @param {string} state Options are "light" or "dark"
  * @param {object} action type contains the action type and payload contains the desired theme
  */
-const currentTheme = (state = "dark", action) => {
-  if (action.type === CHANGE_CURRENT_THEME && state !== action.payload) {
-    return action.payload;
+const isDarkMode = (state = false, action) => {
+  if (action.type === CHANGE_CURRENT_THEME) {
+    return !state;
   } else {
     return state;
   }
@@ -58,4 +57,5 @@ const currentTheme = (state = "dark", action) => {
 export default combineReducers({
   dataProviders,
   dashboards,
+  isDarkMode,
 });

@@ -10,6 +10,8 @@ import App from "./components/App";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const initialState = {
   dataProviders: [],
+  dashboards: [],
+  isDarkMode: false,
 };
 const store = createStore(
   reducers,
